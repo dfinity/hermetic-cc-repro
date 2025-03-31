@@ -1,0 +1,3 @@
+load("//jemalloc:repository.bzl", "jemalloc_repository")
+
+jemalloc_repository()
