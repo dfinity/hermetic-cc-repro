@@ -16,18 +16,18 @@ RUN curl -fsSL https://github.com/bazelbuild/bazelisk/releases/download/v1.25.0/
 
 RUN apt -yqq install gnupg
 
-RUN wget -qO- https://apt.llvm.org/llvm.sh | bash -s -- 18
+RUN wget -qO- https://apt.llvm.org/llvm.sh | bash -s -- 14
 
 RUN useradd -ms /bin/bash ubuntu
 
 USER ubuntu
 
-RUN which clang-18
+RUN which clang-14
 
 RUN mkdir -p "$HOME/hermetic-cc-repro"
 
 ENV USE_BAZEL_VERSION="7.6.0"
-ENV CC=clang-18
+ENV CC=clang-14
 
 WORKDIR /home/ubuntu/hermetic-cc-repro
 
