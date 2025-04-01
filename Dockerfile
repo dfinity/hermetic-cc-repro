@@ -6,7 +6,7 @@ FROM ubuntu@sha256:48c35f3de33487442af224ed4aabac19fd9bfbd91ee90e9471d412706b20b
 ENV TZ=UTC
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt -yq update && apt -yqq install --no-install-recommends curl lsb-release wget software-properties-common gnupg build-essential autoconf autotools-dev
+RUN apt -yq update && apt -yqq install --no-install-recommends curl time lsb-release wget software-properties-common gnupg build-essential autoconf autotools-dev
 
 
 ARG bazelisk_sha=fd8fdff418a1758887520fa42da7e6ae39aefc788cf5e7f7bb8db6934d279fc4
@@ -38,5 +38,4 @@ COPY WORKSPACE.bazel /home/ubuntu/hermetic-cc-repro/
 COPY jemalloc /home/ubuntu/hermetic-cc-repro/jemalloc
 
 RUN bazel version
-RUN ls jemalloc
-RUN bazel build @jemalloc//:libjemalloc
+RUN bazel build --toolchain_resolution_debug='.*' @jemalloc//:libjemalloc --nobuild && time bazel build --toolchain_resolution_debug='.*' @jemalloc//:libjemalloc
